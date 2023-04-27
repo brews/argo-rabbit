@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: pettingzoo-rabbit-example-
+spec:
+  entrypoint: main
+  templates:
+
+  - name: main
+    inputs:
+      artifacts:
+      - name: repo
+        path: /src
+        git:
+          repo: https://github.com/brews/argo-rabbit.git
+          revision: HEAD
+    container:
+      image: python:3.10
+      command: [python]
+      args: ["./hello_world.py"]
+      workingDir: /src
